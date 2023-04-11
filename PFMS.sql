@@ -466,9 +466,9 @@ CREATE PROCEDURE Exercises_ButLimitations(
     IN limitations VARCHAR(100)
 )
 BEGIN
-    SELECT Exercise.Name FROM Exercise
+    SELECT DISTINCT Exercise.Name FROM Exercise
     INNER JOIN Limitations ON Limitations.ExerciseID = Exercise.ExerciseID
-    WHERE Limitations.Limitation_Name = limitations;
+    WHERE Limitations.Limitation_Name != limitations;
 END //
 DELIMITER ;
 
