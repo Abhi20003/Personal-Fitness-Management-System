@@ -4,9 +4,9 @@ USE PFMS;
 
 CREATE TABLE Trainer (
     TrainerID INT PRIMARY KEY AUTO_INCREMENT,
-    Name VARCHAR(100),
-    Mobile VARCHAR(20),
-    Email_id VARCHAR(100)
+    Name VARCHAR(100) NOT NULL,
+    Mobile VARCHAR(20) NOT NULL,
+    Email_id VARCHAR(100) UNIQUE NOT NULL
 );
 
 INSERT INTO Trainer (TrainerID, Name, Mobile, Email_id) 
@@ -24,11 +24,11 @@ VALUES
 
 CREATE TABLE User (
     UserID int PRIMARY KEY AUTO_INCREMENT,
-    Name varchar(100),
+    Name varchar(100) NOT NULL,
     Gender ENUM('M','F'),
-    DOB date,
-    Email_id varchar(100),
-    Mobile varchar(20),
+    DOB date NOT NULL,
+    Email_id varchar(100) UNIQUE NOT NULL,
+    Mobile varchar(20) NOT NULL,
     Goal varchar(100),
     TrainerID int,
     FOREIGN KEY (TrainerID) REFERENCES Trainer(TrainerID)
@@ -49,10 +49,10 @@ VALUES
     
 CREATE TABLE Meal (
   MealID int primary key AUTO_INCREMENT,
-  Name varchar(100),
-  Calories int,
-  Carbs int,
-  Fats int,
+  Name varchar(100) NOT NULL,
+  Calories int NOT NULL,
+  Carbs int NOT NULL,
+  Fats int NOT NULL,
   Proteins int
 );
 
@@ -71,10 +71,10 @@ VALUES (1, 'Chicken breast with quinoa and green beans', 450, 30, 12, 50),
     
 CREATE TABLE DietPlan (
     DietID int PRIMARY KEY AUTO_INCREMENT,
-    Protein_goal int,
-    Carbs_goal int,
-    Calorie_goal int,
-    Fat_goal int, 
+    Protein_goal int NOT NULL,
+    Carbs_goal int NOT NULL,
+    Calorie_goal int NOT NULL,
+    Fat_goal int NOT NULL, 
     MEALID int,
     FOREIGN KEY (MealID) REFERENCES Meal(MealID)
 );
@@ -95,9 +95,9 @@ VALUES
     
 CREATE TABLE FitnessPlan (
     PlanID int PRIMARY KEY AUTO_INCREMENT,
-    Name varchar(100),
-    Goal varchar(100),
-    DietPlanID int,
+    Name varchar(100) NOT NULL,
+    Goal varchar(100) NOT NULL,
+    DietPlanID int ,
     FOREIGN KEY (DietPlanID) REFERENCES DietPlan(DietID)
 );
 
@@ -120,8 +120,8 @@ VALUES
 
 CREATE TABLE WorkoutRoutine (
   RoutineID int primary key AUTO_INCREMENT,
-  Name varchar(100),
-  Calories_burnt int
+  Name varchar(100) NOT NULL,
+  Calories_burnt int NOT NULL
 );
 
 INSERT INTO WorkoutRoutine (RoutineID, Name, Calories_burnt) 
@@ -139,8 +139,8 @@ VALUES (1, 'Morning Run', 300),
 
 CREATE TABLE Exercise (
   ExerciseID int primary key AUTO_INCREMENT,
-  Name varchar(100),
-  Calories_burnt int
+  Name varchar(100) NOT NULL,
+  Calories_burnt int NOT NULL
 );
 
 INSERT INTO Exercise (ExerciseID, Name, Calories_burnt)
@@ -157,12 +157,12 @@ VALUES (1, 'Push-ups', 100),
        
 CREATE TABLE Record (
   RecordID int primary key AUTO_INCREMENT,
-  Date date,
-  Height int,
-  Weight int,
-  Muscle_mass int,
-  Body_fat int,
-  UserID int,
+  Date date NOT NULL,
+  Height int NOT NULL,
+  Weight int NOT NULL,
+  Muscle_mass int NOT NULL,
+  Body_fat int NOT NULL,
+  UserID int ,
   MealID int,
   FOREIGN KEY (UserID) REFERENCES User(UserID),
   FOREIGN KEY (MealID) REFERENCES Meal(MealID)
@@ -244,7 +244,7 @@ VALUES (1, 1), (1, 2), (1, 3),
 
 CREATE TABLE Supplements (
   MealID int,
-  Supplement_name varchar(100),
+  Supplement_name varchar(100) NOT NULL,
   PRIMARY KEY (MealID, Supplement_name),
   FOREIGN KEY (MealID) REFERENCES Meal(MealID)
 );
@@ -264,7 +264,7 @@ VALUES
 
 CREATE TABLE Muscles (
     ExerciseID int,
-    Muscle_name varchar(100),
+    Muscle_name varchar(100) NOT NULL,
     PRIMARY KEY (ExerciseID, Muscle_name),
     FOREIGN KEY (ExerciseID) REFERENCES Exercise(ExerciseID)
 );
@@ -285,7 +285,7 @@ INSERT INTO Muscles (ExerciseID, Muscle_name) VALUES
 
 CREATE TABLE Equipment (
     ExerciseID int,
-    Equipment_name varchar(100),
+    Equipment_name varchar(100) NOT NULL,
     PRIMARY KEY (ExerciseID, Equipment_name),
     FOREIGN KEY (ExerciseID) REFERENCES Exercise(ExerciseID)
 );
@@ -305,7 +305,7 @@ INSERT INTO Equipment (ExerciseID, Equipment_name) VALUES
 
 CREATE TABLE Limitations (
     ExerciseID int,
-    Limitation_name varchar(100),
+    Limitation_name varchar(100) NOT NULL,
     PRIMARY KEY (ExerciseID, Limitation_name),
     FOREIGN KEY (ExerciseID) REFERENCES Exercise(ExerciseID)
 );
