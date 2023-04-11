@@ -208,6 +208,7 @@ VALUES
 CREATE TABLE FitnessPlan_WorkoutRoutine (
     FitnessPlanID INT,
     WorkoutRoutineID INT,
+    PRIMARY KEY(FitnessPlanID, WorkoutRoutineID),
     FOREIGN KEY (FitnessPlanID) REFERENCES FitnessPlan (PlanID),
     FOREIGN KEY (WorkoutRoutineID) REFERENCES WorkoutRoutine (RoutineID)
 );
